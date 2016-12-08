@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DayFour\SecurityThroughObscurity.cs" />
     <Compile Include="DayOne\NoTimeForATaxiCab.cs" />
     <Compile Include="DayThree\SquaresWithThreeSides.cs" />
     <Compile Include="DayTwo\BathroomSecurity.cs" />

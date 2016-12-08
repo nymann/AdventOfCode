@@ -12,7 +12,8 @@ namespace AdventOfCode
         {
             //new DayOne.NoTimeForATaxiCab();
             //new DayTwo.BathroomSecurity();
-            new DayThree.SquaresWithThreeSides();
+            //new DayThree.SquaresWithThreeSides();
+            new DayFour.SecurityThroughObscurity();
         }
 
         static void Main(string[] args)
