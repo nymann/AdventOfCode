@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.DayThree
+namespace AdventOfCode.Day3
 {
     public class SquaresWithThreeSides
     {

@@ -44,10 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DayFour\SecurityThroughObscurity.cs" />
-    <Compile Include="DayOne\NoTimeForATaxiCab.cs" />
-    <Compile Include="DayThree\SquaresWithThreeSides.cs" />
-    <Compile Include="DayTwo\BathroomSecurity.cs" />
+    <Compile Include="Day4\SecurityThroughObscurity.cs" />
+    <Compile Include="Day1\NoTimeForATaxiCab.cs" />
+    <Compile Include="Day3\SquaresWithThreeSides.cs" />
+    <Compile Include="Day2\BathroomSecurity.cs" />
+    <Compile Include="Day5\HowAboutANiceGameOfChess.cs" />
     <Compile Include="Helper\ReadFileLineByLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

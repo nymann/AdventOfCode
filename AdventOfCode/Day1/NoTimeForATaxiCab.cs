@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace AdventOfCode.DayOne
+namespace AdventOfCode.Day1
 {
     public class NoTimeForATaxiCab
     {

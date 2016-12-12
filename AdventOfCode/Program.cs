@@ -10,10 +10,11 @@ namespace AdventOfCode
     {
         public Program()
         {
-            //new DayOne.NoTimeForATaxiCab();
-            //new DayTwo.BathroomSecurity();
-            //new DayThree.SquaresWithThreeSides();
-            new DayFour.SecurityThroughObscurity();
+            //new Day1.NoTimeForATaxiCab();
+            //new Day2.BathroomSecurity();
+            //new Day3.SquaresWithThreeSides();
+            //new Day4.SecurityThroughObscurity();
+            new Day5.HowAboutANiceGameOfChess("ffykfhsq");
         }
 
         static void Main(string[] args)

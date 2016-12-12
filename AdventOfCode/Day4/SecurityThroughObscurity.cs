@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.DayFour
+namespace AdventOfCode.Day4
 {
     public class SecurityThroughObscurity
     {
