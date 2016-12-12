@@ -60,16 +60,16 @@ namespace AdventOfCode.Day6
                 }
             }
             
-            var mostOccuringCol0 = col0.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
-            var mostOccuringCol1 = col1.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
-            var mostOccuringCol2 = col2.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
-            var mostOccuringCol3 = col3.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
-            var mostOccuringCol4 = col4.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
-            var mostOccuringCol5 = col5.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
-            var mostOccuringCol6 = col6.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
-            var mostOccuringCol7 = col7.GroupBy(c => c).OrderByDescending(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol0 = col0.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol1 = col1.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol2 = col2.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol3 = col3.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol4 = col4.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol5 = col5.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol6 = col6.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
+            var leastOccuringCol7 = col7.GroupBy(c => c).OrderBy(k => k.Count()).Select(k => k.Key).First();
             
-            Console.WriteLine("{0}{1}{2}{3}{4}{5}{6}{7}.", mostOccuringCol0, mostOccuringCol1, mostOccuringCol2, mostOccuringCol3, mostOccuringCol4, mostOccuringCol5, mostOccuringCol6, mostOccuringCol7);
+            Console.WriteLine("{0}{1}{2}{3}{4}{5}{6}{7}.", leastOccuringCol0, leastOccuringCol1, leastOccuringCol2, leastOccuringCol3, leastOccuringCol4, leastOccuringCol5, leastOccuringCol6, leastOccuringCol7);
             Console.ReadKey();
         }
     }
