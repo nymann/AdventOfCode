@@ -15,16 +15,20 @@ namespace AdventOfCode.Day5
         {
             var startTime = new Stopwatch();
             startTime.Start();
-            StringBuilder password = new StringBuilder();
+            StringBuilder password = new StringBuilder("________");
 
-            while (password.Length < 8)
+            while (password.ToString().Contains("_"))
             {
                 var temp = input + _counter;
                 if (DoesMd5HashStartWithFive0s(temp))
                 {
-                    char c = GetNextPasswordCharacter(temp);
-                    password.Append(c);
-                    Console.WriteLine("Found next password char, it is: {0}.", c);
+                    Tuple<int, char> indexPos = Password(GetHash(temp));
+                    if (indexPos != null && password[indexPos.Item1].Equals('_'))
+                    {
+                        password[indexPos.Item1] = indexPos.Item2;
+                    }
+
+                    Console.WriteLine(password);
                 }
 
                 _counter++;
@@ -64,11 +68,11 @@ namespace AdventOfCode.Day5
             
         }
 
-        private char GetNextPasswordCharacter(string hash)
+        private string GetHash(string input)
         {
             using (var md5 = MD5.Create())
             {
-                var inputBytes = Encoding.ASCII.GetBytes(hash);
+                var inputBytes = Encoding.ASCII.GetBytes(input);
                 var hashBytes = md5.ComputeHash(inputBytes);
 
                 var stringBuilder = new StringBuilder();
@@ -77,8 +81,16 @@ namespace AdventOfCode.Day5
                 {
                     stringBuilder.Append(t.ToString("x2"));
                 }
-                return stringBuilder.ToString()[5];
+                return stringBuilder.ToString();
             };
+        }
+
+        private Tuple<int, char> Password(string validate)
+        {
+            int index = Convert.ToInt16(validate[5]) - '0';
+            var passChar = validate[6];
+
+            return index >= 8 ? null : Tuple.Create(index, passChar);
         }
     }
 }
