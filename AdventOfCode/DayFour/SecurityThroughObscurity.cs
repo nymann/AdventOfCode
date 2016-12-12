@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace AdventOfCode.DayFour
 {
     public class SecurityThroughObscurity
     {
-        struct Room
+        private struct Room
         {
             public string DecryptedName;
             public string EncryptedName;
@@ -15,7 +14,7 @@ namespace AdventOfCode.DayFour
             public int SectorId;
         }
 
-        private readonly int _idSum = 0;
+        private readonly int _idSum = 0; // part 1
 
 
         public SecurityThroughObscurity()
@@ -39,19 +38,27 @@ namespace AdventOfCode.DayFour
 
                 var room = new Room
                 {
-                    DecryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", " "), // fx. aaaaa-bbb-z-y-x-123[abxyz] will become "aaaaa bbb z y x". Part 2
-                    EncryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", string.Empty), // fx. aaaaa-bbb-z-y-x-123[abxyz] will become "aaaaabbbzyx"
-                    Checksum = roomString.Substring(checkSumIndex + 1, 5), // fx. aaaaa-bbb-z-y-x-123[abxyz] will become "abxyz"
+                    DecryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", " "), // part 2
+                    EncryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", string.Empty),
+                    Checksum = roomString.Substring(checkSumIndex + 1, 5),
                     SectorId = Convert.ToInt16(roomString.Substring(sectorIdIndex, checkSumIndex - sectorIdIndex))
                 };
 
-                var calculatedChecksum = new string(room.EncryptedName.GroupBy(c => c).OrderByDescending(g => g.Count()).ThenBy(g => g.Key).Take(5).Select(g => g.Key).ToArray());
+                var calculatedChecksum =
+                    new string(
+                        room.EncryptedName.GroupBy(c => c)
+                            .OrderByDescending(g => g.Count())
+                            .ThenBy(g => g.Key)
+                            .Take(5)
+                            .Select(g => g.Key)
+                            .ToArray());
 
                 if (!IsRoomReal(calculatedChecksum, room.Checksum)) continue;
                 room.DecryptedName = DecryptName(room.DecryptedName, room.SectorId); // part 2
                 if (room.DecryptedName.ToLower().Contains("north")) // part 2
                 {
-                    Console.WriteLine("the corresponding sector id is {0}, to the room with the name: {1}", room.SectorId, room.DecryptedName);
+                    Console.WriteLine("the corresponding sector id is {0}, to the room with the name: {1}",
+                        room.SectorId, room.DecryptedName);
                     break;
                 }
                 listOfRooms.Add(room);
@@ -72,12 +79,10 @@ namespace AdventOfCode.DayFour
         // part 2.
         private string DecryptName(string room, int sectorId)
         {
-            char[] roomArray = room.ToLower().ToCharArray();
+            var roomArray = room.ToLower().ToCharArray();
             // 'a'  = 97, 'z' = 122
-            for (int i = 0; i < sectorId; i++)
-            {
-                for (int j = 0; j < roomArray.Length; j++)
-                {
+            for (var i = 0; i < sectorId; i++)
+                for (var j = 0; j < roomArray.Length; j++)
                     switch (roomArray[j])
                     {
                         case ' ':
@@ -89,9 +94,7 @@ namespace AdventOfCode.DayFour
                             roomArray[j]++;
                             break;
                     }
-                }
-            }
-            
+
             return new string(roomArray);
         }
     }
