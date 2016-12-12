@@ -7,66 +7,92 @@ namespace AdventOfCode.DayFour
 {
     public class SecurityThroughObscurity
     {
+        struct Room
+        {
+            public string DecryptedName;
+            public string EncryptedName;
+            public string Checksum;
+            public int SectorId;
+        }
+
+        private readonly int _idSum = 0;
+
+
         public SecurityThroughObscurity()
         {
-            //var input = new Helper.ReadFileLineByLine().ReadFile("C://Users//Nymann//Documents//day4.txt");
-            string[] input =
+            var input = new Helper.ReadFileLineByLine().ReadFile("C://Users//Nymann//Documents//day4.txt");
+            var listOfRooms = new List<Room>();
+
+            /*string[] input =
             {
                 "aaaaa-bbb-z-y-x-123[abxyz]",
-                "a-b-c-d-e-f-g-h-987[abcde]"
-            };
+                "qzmt-zixmtkozy-ivhz-343[zimth]"
+            };*/
 
-            foreach (var room in input)
+
+            foreach (var roomString in input)
             {
-                string encryptedName = room.Substring(0, room.IndexOf('['));
-                string checksum = room.Substring(room.IndexOf('[') + 1);
-                checksum = checksum.Substring(0, checksum.IndexOf(']'));
-                Console.WriteLine(encryptedName);
-                if (IsRoomReal(encryptedName, checksum))
+                char[] integers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+                var sectorIdIndex = roomString.IndexOfAny(integers);
+                var checkSumIndex = roomString.IndexOf('[');
+
+                var room = new Room
                 {
-                    Console.WriteLine("{0}, is real!", room);
+                    DecryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", " "), // fx. aaaaa-bbb-z-y-x-123[abxyz] will become "aaaaa bbb z y x". Part 2
+                    EncryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", string.Empty), // fx. aaaaa-bbb-z-y-x-123[abxyz] will become "aaaaabbbzyx"
+                    Checksum = roomString.Substring(checkSumIndex + 1, 5), // fx. aaaaa-bbb-z-y-x-123[abxyz] will become "abxyz"
+                    SectorId = Convert.ToInt16(roomString.Substring(sectorIdIndex, checkSumIndex - sectorIdIndex))
+                };
+
+                var calculatedChecksum = new string(room.EncryptedName.GroupBy(c => c).OrderByDescending(g => g.Count()).ThenBy(g => g.Key).Take(5).Select(g => g.Key).ToArray());
+
+                if (!IsRoomReal(calculatedChecksum, room.Checksum)) continue;
+                room.DecryptedName = DecryptName(room.DecryptedName, room.SectorId); // part 2
+                if (room.DecryptedName.ToLower().Contains("north")) // part 2
+                {
+                    Console.WriteLine("the corresponding sector id is {0}, to the room with the name: {1}", room.SectorId, room.DecryptedName);
+                    break;
                 }
+                listOfRooms.Add(room);
+                _idSum += room.SectorId; // part 1
             }
+
 
             Console.ReadKey();
-
         }
 
-        private bool IsRoomReal(string encryptedName, string checksum)
+
+        private static bool IsRoomReal(string calculatedCheckSum, string checksum)
         {
-            //encryptedName = encryptedName.Replace("-", string.Empty);
-            encryptedName = Regex.Replace(encryptedName, @"[\d-]", string.Empty);
-
-            var l = new Dictionary<char, int>();
-            Console.WriteLine("\n\n\t{0}", checksum);
-            foreach (char c in encryptedName)
-            {
-                if (l.ContainsKey(c) || c == '-') continue;
-                int counter = encryptedName.Count(f => f == c);
-                l.Add(c, counter);
-            }
-
-            foreach (var item in l.OrderBy(key =>  key.Key))
-            {
-                Console.WriteLine("{0}, {1}.", item.Key, item.Value);
-            }
-
-            Console.WriteLine("\n\n\n");
-            int index = 0;
-
-            foreach (char c in checksum)
-            {
-                if (checksum[index] != l.Keys.ElementAt(index))
-                {
-                    // Could be due to Keys not sorted alphabetically when values are the same.
-
-                    return false;
-                }
-                index++;
-            }
-
-            return true;
+            return calculatedCheckSum.Equals(checksum);
         }
 
+
+        // part 2.
+        private string DecryptName(string room, int sectorId)
+        {
+            char[] roomArray = room.ToLower().ToCharArray();
+            // 'a'  = 97, 'z' = 122
+            for (int i = 0; i < sectorId; i++)
+            {
+                for (int j = 0; j < roomArray.Length; j++)
+                {
+                    switch (roomArray[j])
+                    {
+                        case ' ':
+                            break;
+                        case 'z':
+                            roomArray[j] = 'a';
+                            break;
+                        default:
+                            roomArray[j]++;
+                            break;
+                    }
+                }
+            }
+            
+            return new string(roomArray);
+        }
     }
 }
