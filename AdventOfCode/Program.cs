@@ -15,7 +15,8 @@ namespace AdventOfCode
             //new Day3.SquaresWithThreeSides();
             //new Day4.SecurityThroughObscurity();
             //new Day5.HowAboutANiceGameOfChess("ffykfhsq");
-            new Day6.SignalsAndNoise();
+            //new Day6.SignalsAndNoise();
+            new Day7.InternetProtocolVersion7();
         }
 
         static void Main(string[] args)

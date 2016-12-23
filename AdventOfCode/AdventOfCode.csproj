@@ -50,6 +50,7 @@
     <Compile Include="Day2\BathroomSecurity.cs" />
     <Compile Include="Day5\HowAboutANiceGameOfChess.cs" />
     <Compile Include="Day6\SignalsAndNoise.cs" />
+    <Compile Include="Day7\InternetProtocolVersion7.cs" />
     <Compile Include="Helper\ReadFileLineByLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
