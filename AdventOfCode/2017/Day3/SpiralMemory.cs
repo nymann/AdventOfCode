@@ -64,14 +64,9 @@ namespace AdventOfCode._2017.Day3
 
             arr[x, y] = number;
             number++;
-            var finished = false;
-            while (!finished)
-            {
-                if (number > input)
-                {
-                    break;
-                }
 
+            while (true)
+            {
                 // Go right
                 for (var i = 1; i <= travelDistance; i++)
                 {
@@ -79,14 +74,9 @@ namespace AdventOfCode._2017.Day3
                     arr[x, y] = number;
                     if (number >= arr.Length)
                     {
-                        finished = true;
-                        break;
+                        goto EndThisMisery;
                     }
                     number++;
-                }
-                if (number > input)
-                {
-                    break;
                 }
 
                 // Go UP
@@ -97,14 +87,10 @@ namespace AdventOfCode._2017.Day3
                     number++;
                     if (number > arr.Length)
                     {
-                        finished = true;
-                        break;
+                        goto EndThisMisery;
                     }
                 }
-                if (number > input)
-                {
-                    break;
-                }
+
                 // increase travelDistance
                 travelDistance++;
 
@@ -116,13 +102,8 @@ namespace AdventOfCode._2017.Day3
                     number++;
                     if (number > arr.Length)
                     {
-                        finished = true;
-                        break;
+                        goto EndThisMisery;
                     }
-                }
-                if (number > input)
-                {
-                    break;
                 }
 
                 // Go down
@@ -133,50 +114,40 @@ namespace AdventOfCode._2017.Day3
                     number++;
                     if (number > arr.Length)
                     {
-                        finished = true;
-                        break;
+                        goto EndThisMisery;
                     } 
                 }
 
                 // Increase travel distance
                 travelDistance++;
             }
+            EndThisMisery:
 
             return arr;
         }
             
         private int CalculateManhattanDistance(int[,] spiralArray, int input)
         {
-            var manhattanDistance = -99;
             var centerSquare = new Point(spiralArray.GetLength(0)/2, spiralArray.GetLength(1) / 2);
             var inputSquare = new Point(0, 0);
 
-            // Find the center
-            for (int y = 0; y < spiralArray.GetLength(0); y++)
+            for (var y = 0; y < spiralArray.GetLength(0); y++)
             {
-                for (int x = 0; x < spiralArray.GetLength(1); x++)
+                for (var x = 0; x < spiralArray.GetLength(1); x++)
                 {
-                    /*if (x == spiralArray.GetLength(1) -1)
+                    if (spiralArray[x, y] != input)
                     {
-                        Console.WriteLine(spiralArray[x, y]);
+                        continue;
                     }
 
-                    else
-                    {
-                        Console.Write($"{spiralArray[x, y]}\t");
-                    }*/
 
-                    if (spiralArray[x,y] == input)
-                    {
-                        inputSquare.X = x;
-                        inputSquare.Y = y;
-                        return Math.Abs(centerSquare.X - inputSquare.X) + Math.Abs(centerSquare.Y - inputSquare.Y);
-                    }
+                    inputSquare.X = x;
+                    inputSquare.Y = y;
+                    return Math.Abs(centerSquare.X - inputSquare.X) + Math.Abs(centerSquare.Y - inputSquare.Y);
                 }
             }
 
-
-            return manhattanDistance;
+            throw new Exception("Couldn't find an answer to the problem!");
         }
     }
 }
