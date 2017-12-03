@@ -53,6 +53,7 @@
     <Compile Include="2016\Day7\InternetProtocolVersion7.cs" />
     <Compile Include="2017\Day1\InverseCaptcha.cs" />
     <Compile Include="2017\Day2\CorruptionChecksum.cs" />
+    <Compile Include="2017\Day3\SpiralMemory.cs" />
     <Compile Include="Helper\ReadFileLineByLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

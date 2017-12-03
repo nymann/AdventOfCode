@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace AdventOfCode._2017.Day2
@@ -55,7 +56,7 @@ namespace AdventOfCode._2017.Day2
             return sum;
         }
 
-        private bool IsEvenDivisable(int n1, int n2)
+        public static bool IsEvenDivisable(int n1, int n2)
         {
             return n1 % n2 == 0;
         }

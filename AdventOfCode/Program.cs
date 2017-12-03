@@ -11,7 +11,8 @@ namespace AdventOfCode
         public Program()
         {
             //new _2017.Day1.InverseCaptcha();
-            new _2017.Day2.CorruptionChecksum();
+            //new _2017.Day2.CorruptionChecksum();
+            new _2017.Day3.SpiralMemory();
         }
 
         static void Main(string[] args)
