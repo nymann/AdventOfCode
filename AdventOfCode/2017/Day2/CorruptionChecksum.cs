@@ -14,7 +14,8 @@ namespace AdventOfCode._2017.Day2
             Console.ReadKey();
         }
 
-        private int CalculateSpreadsheetChecksum(IEnumerable<string> input)
+        // Part 1
+        /*private int CalculateSpreadsheetChecksum(IEnumerable<string> input)
         {
             var sum = 0;
             foreach (var collumn in input)
@@ -24,6 +25,39 @@ namespace AdventOfCode._2017.Day2
             }
             
             return sum;
+        }*/
+
+        // Part 2
+        private int CalculateSpreadsheetChecksum(IEnumerable<string> input)
+        {
+            var sum = 0;
+            foreach (var collumn in input)
+            {
+                var intArr = Array.ConvertAll(collumn.Split('\t'), int.Parse);
+                
+                for (var i = 0; i < intArr.Length; i++)
+                {
+                    for (var j = 0; j < intArr.Length; j++)
+                    {
+                        if (i == j)
+                        {
+                            continue;
+                        }
+
+                        if (IsEvenDivisable(intArr[i], intArr[j]))
+                        {
+                            sum += intArr[i] / intArr[j];
+                        }
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        private bool IsEvenDivisable(int n1, int n2)
+        {
+            return n1 % n2 == 0;
         }
     }
 }
