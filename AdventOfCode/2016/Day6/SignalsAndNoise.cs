@@ -9,7 +9,7 @@ namespace AdventOfCode.Day6
     {
         public SignalsAndNoise()
         {
-            var input = new Helper.ReadFileLineByLine().ReadFile("C://Users//Nymann//Documents//day6.txt");
+            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//day6.txt");
 
             var col0 = new List<char>();
             var col1 = new List<char>();

@@ -13,7 +13,7 @@ namespace AdventOfCode.Day3
 
         public SquaresWithThreeSides()
         {
-            var input = new Helper.ReadFileLineByLine().ReadFile("C://Users//Nymann//Documents//day3.txt");
+            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//day3.txt");
 
             for (var i = 0; i < input.Count; i++)
             {

@@ -44,13 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Day4\SecurityThroughObscurity.cs" />
-    <Compile Include="Day1\NoTimeForATaxiCab.cs" />
-    <Compile Include="Day3\SquaresWithThreeSides.cs" />
-    <Compile Include="Day2\BathroomSecurity.cs" />
-    <Compile Include="Day5\HowAboutANiceGameOfChess.cs" />
-    <Compile Include="Day6\SignalsAndNoise.cs" />
-    <Compile Include="Day7\InternetProtocolVersion7.cs" />
+    <Compile Include="2016\Day4\SecurityThroughObscurity.cs" />
+    <Compile Include="2016\Day1\NoTimeForATaxiCab.cs" />
+    <Compile Include="2016\Day3\SquaresWithThreeSides.cs" />
+    <Compile Include="2016\Day2\BathroomSecurity.cs" />
+    <Compile Include="2016\Day5\HowAboutANiceGameOfChess.cs" />
+    <Compile Include="2016\Day6\SignalsAndNoise.cs" />
+    <Compile Include="2016\Day7\InternetProtocolVersion7.cs" />
+    <Compile Include="2017\Day1\InverseCaptcha.cs" />
+    <Compile Include="2017\Day2\CorruptionChecksum.cs" />
     <Compile Include="Helper\ReadFileLineByLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

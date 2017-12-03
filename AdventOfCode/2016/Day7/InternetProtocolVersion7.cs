@@ -9,7 +9,7 @@ namespace AdventOfCode.Day7
 
         public InternetProtocolVersion7()
         {
-            //var input = new Helper.ReadFileLineByLine().ReadFile("C://Users//Nymann//Documents//day7.txt");
+            //var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//day7.txt");
             string[] input =
             {
                 "abba[mnop]qrst",

@@ -19,7 +19,7 @@ namespace AdventOfCode.Day4
 
         public SecurityThroughObscurity()
         {
-            var input = new Helper.ReadFileLineByLine().ReadFile("C://Users//Nymann//Documents//day4.txt");
+            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//day4.txt");
             var listOfRooms = new List<Room>();
 
             /*string[] input =
