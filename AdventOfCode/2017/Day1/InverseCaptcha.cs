@@ -14,7 +14,7 @@ namespace AdventOfCode._2017.Day1
             {
                 if (digit.Equals(previousDigit))
                 {
-                    sum += Convert.ToInt16(digit.ToString());
+                    sum += Convert.ToUInt16(digit.ToString());
                 }
 
                 previousDigit = digit;
@@ -22,7 +22,7 @@ namespace AdventOfCode._2017.Day1
 
             if (input.Last().Equals(input.First()))
             {
-                sum += Convert.ToInt16(input.First().ToString());
+                sum += Convert.ToUInt16(input.First().ToString());
             }
 
             return sum;
@@ -53,7 +53,7 @@ namespace AdventOfCode._2017.Day1
 
                 if (digit.Equals(input[compareIndex]))
                 {
-                    sum += Convert.ToInt16(digit.ToString()) * 2;
+                    sum += Convert.ToUInt16(digit.ToString()) * 2;
                 }
             }
 

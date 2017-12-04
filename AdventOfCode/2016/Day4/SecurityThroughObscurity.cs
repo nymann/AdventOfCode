@@ -41,7 +41,7 @@ namespace AdventOfCode.Day4
                     DecryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", " "), // part 2
                     EncryptedName = roomString.Substring(0, sectorIdIndex).Replace("-", string.Empty),
                     Checksum = roomString.Substring(checkSumIndex + 1, 5),
-                    SectorId = Convert.ToInt16(roomString.Substring(sectorIdIndex, checkSumIndex - sectorIdIndex))
+                    SectorId = Convert.ToUInt16(roomString.Substring(sectorIdIndex, checkSumIndex - sectorIdIndex))
                 };
 
                 var calculatedChecksum =

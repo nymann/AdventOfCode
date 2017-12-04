@@ -87,7 +87,7 @@ namespace AdventOfCode.Day5
 
         private Tuple<int, char> Password(string validate)
         {
-            int index = Convert.ToInt16(validate[5]) - '0';
+            int index = Convert.ToUInt16(validate[5]) - '0';
             var passChar = validate[6];
 
             return index >= 8 ? null : Tuple.Create(index, passChar);

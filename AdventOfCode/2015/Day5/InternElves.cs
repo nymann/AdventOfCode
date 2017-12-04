@@ -49,7 +49,6 @@ namespace AdventOfCode._2015.Day5
 
         private bool IsNicePart2(string input)
         {
-            // 
             var c1 = false;
             var c2 = false;
             for (int i = 0; i < input.Length; i++)

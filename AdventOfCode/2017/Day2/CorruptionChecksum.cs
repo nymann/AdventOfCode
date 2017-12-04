@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode._2017.Day2
@@ -25,9 +24,9 @@ namespace AdventOfCode._2017.Day2
         public int Part2(IEnumerable<string> input)
         {
             var sum = 0;
-            foreach (var collumn in input)
+            foreach (var line in input)
             {
-                var intArr = Array.ConvertAll(collumn.Split('\t'), int.Parse);
+                var intArr = Array.ConvertAll(line.Split('\t'), int.Parse);
                 
                 for (var i = 0; i < intArr.Length; i++)
                 {
@@ -38,7 +37,7 @@ namespace AdventOfCode._2017.Day2
                             continue;
                         }
 
-                        if (IsEvenDivisable(intArr[i], intArr[j]))
+                        if (intArr[i] % intArr[j] == 0)
                         {
                             sum += intArr[i] / intArr[j];
                         }
@@ -47,11 +46,6 @@ namespace AdventOfCode._2017.Day2
             }
 
             return sum;
-        }
-
-        public static bool IsEvenDivisable(int n1, int n2)
-        {
-            return n1 % n2 == 0;
         }
     }
 }
