@@ -7,29 +7,22 @@ namespace AdventOfCode._2017.Day2
 {
     public class CorruptionChecksum
     {
-        public CorruptionChecksum()
-        {
-            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//AdventOfCode//AdventOfCode//2017//Day2//input.txt");
-            var result = CalculateSpreadsheetChecksum(input);
-            Console.WriteLine($"The answer to {GetType().Name} is: {result}.");
-            Console.ReadKey();
-        }
 
         // Part 1
-        /*private int CalculateSpreadsheetChecksum(IEnumerable<string> input)
+        public int Part1(IEnumerable<string> input)
         {
             var sum = 0;
-            foreach (var collumn in input)
+            foreach (var line in input)
             {
-                var intArr = Array.ConvertAll(collumn.Split('\t'), int.Parse);
+                var intArr = Array.ConvertAll(line.Split('\t'), int.Parse);
                 sum += intArr.Max() - intArr.Min();
             }
             
             return sum;
-        }*/
+        }
 
         // Part 2
-        private int CalculateSpreadsheetChecksum(IEnumerable<string> input)
+        public int Part2(IEnumerable<string> input)
         {
             var sum = 0;
             foreach (var collumn in input)

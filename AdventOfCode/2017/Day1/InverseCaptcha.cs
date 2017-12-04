@@ -5,17 +5,7 @@ namespace AdventOfCode._2017.Day1
 {
     public class InverseCaptcha
     {
-        public InverseCaptcha()
-        {
-            var input = new Helper.ReadFileLineByLine().FileAsString("C://Users//Nymann//Documents//AdventOfCode//AdventOfCode//2017//Day1//input.txt");
-            //var input = "123425";
-            var result = CalculateSumOfMatchingDigits(input);
-            Console.WriteLine($"The answer to {GetType().Name} is: {result}.");
-            Console.ReadKey();
-        }
-
-        // Part 1
-        /*private int CalculateSumOfMatchingDigits(string input)
+        public int Part1(string input)
         {
             var previousDigit = '0';
             var sum = 0;
@@ -36,15 +26,14 @@ namespace AdventOfCode._2017.Day1
             }
 
             return sum;
-        }*/
+        }
 
-        // Part 2
-        private int CalculateSumOfMatchingDigits(string input)
+        public int Part2(string input)
         {
             var sum = 0;
             var halfwayArround = input.Length / 2;
 
-            for (var index = 0; index < input.Length; index++)
+            for (var index = 0; index < halfwayArround; index++)
             {
                 var digit = input[index];
                 var compareIndex = index + halfwayArround;
@@ -56,15 +45,15 @@ namespace AdventOfCode._2017.Day1
 
                 if (compareIndex >= input.Length)
                 {
-                    // How do we 'wrap' arround?
+                    // So.. How do we 'wrap' arround?
                     // Modulus!
-                    // compareindex % input.length;
+                    // compareindex % input.length; (4 % input.Length = 4 % 4 = 0, which was the index we wanted to go to)
                     compareIndex %= input.Length;
                 }
 
                 if (digit.Equals(input[compareIndex]))
                 {
-                    sum += Convert.ToInt16(digit.ToString());
+                    sum += Convert.ToInt16(digit.ToString()) * 2;
                 }
             }
 

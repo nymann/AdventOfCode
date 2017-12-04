@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="2015\Day1\NotQuiteLisp.cs" />
+    <Compile Include="2015\Day2\WasToldThereWouldBeNoMath.cs" />
+    <Compile Include="2015\Day3\PerfectlySphericalHouses.cs" />
+    <Compile Include="2015\Day4\TheIdealStockingStuffer.cs" />
+    <Compile Include="2015\Day5\InternElves.cs" />
     <Compile Include="2016\Day4\SecurityThroughObscurity.cs" />
     <Compile Include="2016\Day1\NoTimeForATaxiCab.cs" />
     <Compile Include="2016\Day3\SquaresWithThreeSides.cs" />
@@ -54,6 +59,7 @@
     <Compile Include="2017\Day1\InverseCaptcha.cs" />
     <Compile Include="2017\Day2\CorruptionChecksum.cs" />
     <Compile Include="2017\Day3\SpiralMemory.cs" />
+    <Compile Include="2017\Day4\HighEntropyPassPhrases.cs" />
     <Compile Include="Helper\ReadFileLineByLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +67,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
