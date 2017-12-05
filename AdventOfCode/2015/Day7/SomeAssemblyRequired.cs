@@ -24,13 +24,12 @@ namespace AdventOfCode._2015.Day7
             {
                 var instructionArr = instruction.Split();
 
-                // done and tested.
                 #region NOT
                 if (instruction.Contains("NOT"))
                 {
                     if (!Dictionary.ContainsKey(instructionArr[1]))
                     {
-                        Dictionary.Add(instructionArr[1], 0);
+                        continue;
                     }
 
                     if (!Dictionary.ContainsKey(instructionArr[3]))
@@ -40,6 +39,18 @@ namespace AdventOfCode._2015.Day7
 
                     var value = Dictionary[instructionArr[1]];
                     value = (ushort) ~value;
+
+                    var signalNames = instructionArr.Last().Split();
+
+                    foreach (var name in signalNames)
+                    {
+                        if (!Dictionary.ContainsKey(name))
+                        {
+                            Dictionary.Add(name, 0);
+                        }
+
+                        Dictionary[name] = (ushort)value;
+                    }
                     Dictionary[instructionArr.Last()] = value;
 
                 }
@@ -51,6 +62,11 @@ namespace AdventOfCode._2015.Day7
                 {
                     var a = ObtainNumber(instructionArr, 0);
                     var b = ObtainNumber(instructionArr, 2);
+
+                    if (a == null || b == null)
+                    {
+                        continue;
+                    }
 
                     Dictionary[instructionArr.Last()] = (ushort)(a & b);
                 }
@@ -64,6 +80,11 @@ namespace AdventOfCode._2015.Day7
                     var a = ObtainNumber(instructionArr, 0);
                     var b = ObtainNumber(instructionArr, 2);
 
+                    if (a == null || b == null)
+                    {
+                        continue;
+                    }
+
                     Dictionary[instructionArr.Last()] = (ushort)(a | b);
                 }
 
@@ -75,6 +96,11 @@ namespace AdventOfCode._2015.Day7
                 {
                     var a = ObtainNumber(instructionArr, 0);
                     var b = ObtainNumber(instructionArr, 2);
+
+                    if (a == null || b == null)
+                    {
+                        continue;
+                    }
 
                     Dictionary[instructionArr.Last()] = (ushort)(a >> b);
                 }
@@ -88,6 +114,11 @@ namespace AdventOfCode._2015.Day7
                     var a = ObtainNumber(instructionArr, 0);
                     var b = ObtainNumber(instructionArr, 2);
 
+                    if (a == null || b == null)
+                    {
+                        continue;
+                    }
+
                     Dictionary[instructionArr.Last()] = (ushort)(a << b);
                 }
 
@@ -98,13 +129,24 @@ namespace AdventOfCode._2015.Day7
 
                 else
                 {
-                    if (!Dictionary.ContainsKey(instructionArr.Last()))
+                    var value = ObtainNumber(instructionArr, 0);
+
+                    if (value == null)
                     {
-                        Dictionary.Add(instructionArr.Last(), 0);
+                        continue;
                     }
 
-                    var value = ObtainNumber(instructionArr, 0);
-                    Dictionary[instructionArr.Last()] = value;
+                    var signalNames = instructionArr.Last().Split();
+
+                    foreach (var name in signalNames)
+                    {
+                        if (!Dictionary.ContainsKey(name))
+                        {
+                            Dictionary.Add(name, 0);
+                        }
+
+                        Dictionary[name] = (ushort) value;
+                    }
                 }
 
                 #endregion
@@ -113,7 +155,7 @@ namespace AdventOfCode._2015.Day7
             return Dictionary;
         }
 
-        private ushort ObtainNumber(IReadOnlyList<string> instructionArr, int index)
+        private ushort? ObtainNumber(IReadOnlyList<string> instructionArr, int index)
         {
             ushort a;
             var regex = new Regex(@"\d+");
@@ -127,7 +169,7 @@ namespace AdventOfCode._2015.Day7
             {
                 if (!Dictionary.ContainsKey(instructionArr[index]))
                 {
-                    Dictionary.Add(instructionArr[index], 0);
+                    return null;
                 }
 
                 a = Dictionary[instructionArr[index]];

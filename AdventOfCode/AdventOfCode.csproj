@@ -51,6 +51,8 @@
     <Compile Include="2015\Day5\InternElves.cs" />
     <Compile Include="2015\Day6\ProbablyAFireHazard.cs" />
     <Compile Include="2015\Day7\SomeAssemblyRequired.cs" />
+    <Compile Include="2016\Day1\Direction.cs" />
+    <Compile Include="2016\Day1\PositionDirection.cs" />
     <Compile Include="2016\Day4\SecurityThroughObscurity.cs" />
     <Compile Include="2016\Day1\NoTimeForATaxiCab.cs" />
     <Compile Include="2016\Day3\SquaresWithThreeSides.cs" />
