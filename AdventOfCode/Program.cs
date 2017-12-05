@@ -14,7 +14,7 @@ namespace AdventOfCode
             var swPart1 = new Stopwatch();
             var swPart2 = new Stopwatch();
 
-            var input = new Helper.ReadFileLineByLine().FileAsString("C://Users//Nymann//Documents//AdventOfCode//AdventOfCode//2017//Day5//input.txt");
+            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//AdventOfCode//AdventOfCode//2017//Day5//input.txt");
 
             var problem = new CurrentProblem(); // Change this depending on what problem you want to solve.
             swPart1.Start();
