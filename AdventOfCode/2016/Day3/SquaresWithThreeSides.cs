@@ -1,63 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Day3
+namespace AdventOfCode._2016.Day3
 {
     public class SquaresWithThreeSides
     {
-        private readonly List<int> _a = new List<int>();
-        private readonly List<int> _b = new List<int>();
-        private readonly List<int> _c = new List<int>();
-        
-
-        public SquaresWithThreeSides()
+        public int Part1(List<string> input)
         {
-            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//day3.txt");
-
-            for (var i = 0; i < input.Count; i++)
+            var counter = 0;
+            foreach (var line in input)
             {
-                var l = input[i].TrimStart();
-                var k1 = int.Parse(l.Substring(0, l.IndexOf(' ')));
-                l = l.Substring(l.IndexOf(' '));
-                l = l.TrimStart();
-                var k2 = int.Parse(l.Substring(0, l.IndexOf(' ')));
-                l = l.Substring(l.IndexOf(' '));
-                l = l.TrimStart();
-                var k3 = int.Parse(l);
-
-                switch (i % 3)
+                var matchCollection = Regex.Matches(line, "([0-9])+");
+                for (var i = 0; i < matchCollection.Count - 2; i+=3)
                 {
-                    case 0:
-                        _a.Add(k1);
-                        _a.Add(k2);
-                        _a.Add(k3);
-                        break;
-                    case 1:
-                        _b.Add(k1);
-                        _b.Add(k2);
-                        _b.Add(k3);
-                        break;
-                    case 2:
-                        _c.Add(k1);
-                        _c.Add(k2);
-                        _c.Add(k3);
-                        break;
-                    default:
-                        Console.WriteLine(@"This should never happen.");
-                        break;
+                    var a = Convert.ToInt32(matchCollection[i].Value);
+                    var b = Convert.ToInt32(matchCollection[i + 1].Value);
+                    var c = Convert.ToInt32(matchCollection[i + 2].Value);
+
+                    if (ValidTriangle(a, b, c))
+                    {
+                        counter++;
+                    }
                 }
             }
 
-            var counterOfValidTriangles = _a.Where((t, i) => IsTrianglePossible(t, _b[i], _c[i])).Count();
-
-            Console.WriteLine(counterOfValidTriangles);
-            Console.ReadKey();
+            return counter;
         }
 
-        private bool IsTrianglePossible(int a, int b, int c)
+        public int Part2(List<string> input)
         {
-            return (a + b) > c && (a + c) > b && (b + c) > a;
+            var counter = 0;
+            var aList = new List<int>();
+            var bList = new List<int>();
+            var cList = new List<int>();
+
+            foreach (var line in input)
+            {
+                var mc = Regex.Matches(line, "([0-9])+");
+                aList.Add(Convert.ToInt32(mc[0].ToString()));
+                bList.Add(Convert.ToInt32(mc[1].ToString()));
+                cList.Add(Convert.ToInt32(mc[2].ToString()));
+            }
+
+            for (var i = 0; i < aList.Count - 2; i+=3)
+            {
+                var a = aList[i];
+                var b = aList[i + 1];
+                var c = aList[i + 2];
+                
+                if (ValidTriangle(a, b, c))
+                {
+                    counter++;
+                }
+
+                a = bList[i];
+                b = bList[i + 1];
+                c = bList[i + 2];
+
+                if (ValidTriangle(a, b, c))
+                {
+                    counter++;
+                }
+
+                a = cList[i];
+                b = cList[i + 1];
+                c = cList[i + 2];
+
+                if (ValidTriangle(a, b, c))
+                {
+                    counter++;
+                }
+            }
+            
+            return counter;
+        }
+
+        private bool ValidTriangle(int a, int b, int c)
+        {
+            return a + b > c && a + c > b && b + c > a;
         }
     }
 }

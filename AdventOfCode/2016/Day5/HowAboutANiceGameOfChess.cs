@@ -1,96 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AdventOfCode.Day5
+namespace AdventOfCode._2016.Day5
 {
     public class HowAboutANiceGameOfChess
     {
-        private int _counter = 0;
-
-        public HowAboutANiceGameOfChess(string input)
+        public string Part1(string input)
         {
-            var startTime = new Stopwatch();
-            startTime.Start();
-            StringBuilder password = new StringBuilder("________");
-
-            while (password.ToString().Contains("_"))
+            using (var md5 = MD5.Create())
             {
-                var temp = input + _counter;
-                if (DoesMd5HashStartWithFive0s(temp))
+                var password = "";
+                for (var i = 0; i < int.MaxValue; i++)
                 {
-                    Tuple<int, char> indexPos = Password(GetHash(temp));
-                    if (indexPos != null && password[indexPos.Item1].Equals('_'))
+                    var str = input + i;
+                    var hash = md5.ComputeHash(Encoding.ASCII.GetBytes(str));
+                    var hex = BitConverter.ToString(hash).Replace("-", "");
+                    if (!HexStartsWithXZeroes(hex, 5))
                     {
-                        password[indexPos.Item1] = indexPos.Item2;
+                        continue;
                     }
 
-                    Console.WriteLine(password);
-                }
+                    password += hex[5];
 
-                _counter++;
+                    if (password.Length == 8)
+                    {
+                        return password.ToLower();
+                    }
+                }
             }
-            startTime.Stop();
-            Console.WriteLine("password is: {0}, computed in {1} ms.", password, startTime.ElapsedMilliseconds);
-            Console.ReadKey();
+
+            throw new Exception("No solutions found!");
         }
 
-        private bool DoesMd5HashStartWithFive0s(string input)
+        public string Part2(string input)
         {
             using (var md5 = MD5.Create())
             {
-                var inputBytes = Encoding.ASCII.GetBytes(input);
-                var hashBytes = md5.ComputeHash(inputBytes);
-
-                var stringBuilder = new StringBuilder();
-
-                foreach (var t in hashBytes)
+                var password = "________";
+                for (var i = 0; i < int.MaxValue; i++)
                 {
-                    stringBuilder.Append(t.ToString("x2"));
-
-                    if (stringBuilder.Length > 5)
+                    var str = input + i;
+                    var hash = md5.ComputeHash(Encoding.ASCII.GetBytes(str));
+                    var hex = BitConverter.ToString(hash).Replace("-", "");
+                    var index = Convert.ToInt32(hex[5] - '0');
+                    if (index > 7 || !password[index].Equals('_'))
                     {
-                        return stringBuilder.ToString().Substring(0, 5).Equals("00000");
+                        continue;
+                    }
+                    if (!HexStartsWithXZeroes(hex, 5))
+                    {
+                        continue;
                     }
 
-                    var compareTo = new string('0', stringBuilder.Length);
-                    if (!stringBuilder.ToString().Substring(0, stringBuilder.Length).Equals(compareTo))
+                    password = new StringBuilder(password) {[index] = hex[6]}.ToString();
+                    if (!password.Contains("_"))
                     {
-                        return false;
+                        return password.ToLower();
                     }
                 }
+            }
 
-                return stringBuilder.ToString().Substring(0, 5).Equals("00000");
-            } ;
-            
+            throw new Exception("No solutions found!");
         }
 
-        private string GetHash(string input)
+        private bool HexStartsWithXZeroes(string input, int x)
         {
-            using (var md5 = MD5.Create())
+            for (var i = 0; i < x; i++)
             {
-                var inputBytes = Encoding.ASCII.GetBytes(input);
-                var hashBytes = md5.ComputeHash(inputBytes);
-
-                var stringBuilder = new StringBuilder();
-
-                foreach (var t in hashBytes)
+                if (!input[i].Equals('0'))
                 {
-                    stringBuilder.Append(t.ToString("x2"));
+                    return false;
                 }
-                return stringBuilder.ToString();
-            };
-        }
+            }
 
-        private Tuple<int, char> Password(string validate)
-        {
-            int index = Convert.ToUInt16(validate[5]) - '0';
-            var passChar = validate[6];
-
-            return index >= 8 ? null : Tuple.Create(index, passChar);
+            return true;
         }
     }
 }

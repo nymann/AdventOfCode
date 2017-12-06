@@ -5,12 +5,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests._2017.Day5
 {
     [TestClass]
-    public class CurrentProblemTest
+    public class MazeOfTwistyTrampolinesTest
     {
         [TestMethod]
         public void Part1Test()
         {
-            var problem = new CurrentProblem();
+            var problem = new MazeOfTwistyTrampolines();
             var input = new List<string>
             {
                 "0",
@@ -26,7 +26,7 @@ namespace UnitTests._2017.Day5
         [TestMethod]
         public void Part2Test()
         {
-            var problem = new CurrentProblem();
+            var problem = new MazeOfTwistyTrampolines();
             var input = new List<string>
             {
                 "0",

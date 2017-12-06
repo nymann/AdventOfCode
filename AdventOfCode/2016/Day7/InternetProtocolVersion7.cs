@@ -1,102 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Day7
+namespace AdventOfCode._2016.Day7
 {
     public class InternetProtocolVersion7
     {
+        #region Part 1
 
-        public InternetProtocolVersion7()
+        public int Part1(List<string> input)
         {
-            //var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//day7.txt");
-            string[] input =
-            {
-                "abba[mnop]qrst",
-                "abcd[bddb]xyyx",
-                "aaaa[qwer]tyui",
-                "ioxxoj[asdfgh]zxcvbn"
-            };
-
-            List<string> supportsTLS = new List<string>();
-
-            foreach (var line in input)
-            {
-                bool insideBrackets = false;
-                bool doesLineContainPalindrone = false;
-
-                for (int i = 0; i < line.Length; i++)
-                {
-
-                    if (line[i] == '[')
-                    {
-                        insideBrackets = !insideBrackets;
-                        string insideBrack = line.Substring(i + 1, line.IndexOf(']') - (i+1));
-                        if (insideBrack.Length == 4 && DoesLineContainPalindrone(insideBrack))
-                        {
-                            break;
-                        }
-                        
-                    }
-
-                    else if (!doesLineContainPalindrone && !insideBrackets)
-                    {
-                        doesLineContainPalindrone = Next4CharsPalindrone(line, i);
-                    }
-                }
-            }
-
-            foreach (var line in supportsTLS)
-            {
-                Console.WriteLine(line);
-            }
-            Console.ReadKey();
+            return input.Count(SupportsTransportlayerSnooping);
         }
 
-        private bool Next4CharsPalindrone(string line, int startIndex)
+        #endregion
+
+
+        #region Part 2
+
+        public int Part2List(List<string> input)
         {
-            var temp = startIndex;
-
-            if (line.Length - 1 < startIndex + 3)
-            {
-                return false;
-            }
-
-            var endIndex = startIndex + 3;
-
-            while (endIndex > startIndex)
-            {
-                if (line[endIndex] != line[startIndex])
-                {
-                    return false;
-                }
-
-                endIndex--;
-                startIndex++;
-            }
-            if (line.Substring(temp, 4).Distinct().Count() == 1)
-            {
-                return false;
-            }
-            return true;
+            return 0;
         }
 
-        private bool DoesLineContainPalindrone(string line)
+        #endregion
+
+
+        private bool SupportsTransportlayerSnooping(string ip)
         {
-            int startIndex = 0;
-            int endIndex = startIndex + 3;
+            // rhamaeovmbheijj[hkwbkqzlcscwjkyjulk]ajsxfuemamuqcjccbc
+            // Get within brackets
+            var matches = Regex.Matches(ip, @"\[(.*?)\]"); // [hkwbkqzlcscwjkyjulk]
 
-
-            while (endIndex > startIndex)
-            {
-                if (line[endIndex] != line[startIndex])
-                {
-                    return false;
-                }
-
-                endIndex--;
-                startIndex++;
-            }
+            var s = ip.Substring(0, ip.IndexOf('[')); // rhamaeovmbheijj
+            
 
             return true;
         }

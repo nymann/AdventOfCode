@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using AdventOfCode._2015.Day6;
-using AdventOfCode._2015.Day7;
-using AdventOfCode._2016.Day1;
-using AdventOfCode._2017.Day5;
+using AdventOfCode._2016.Day5;
+using AdventOfCode._2016.Day6;
+using AdventOfCode._2017.Day6;
 
 namespace AdventOfCode
 {
@@ -14,7 +13,7 @@ namespace AdventOfCode
             var swPart1 = new Stopwatch();
             var swPart2 = new Stopwatch();
 
-            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//AdventOfCode//AdventOfCode//2017//Day5//input.txt");
+            var input = new Helper.ReadFileLineByLine().FileAsStringList("C://Users//Nymann//Documents//AdventOfCode//AdventOfCode//2017//Day6//input.txt");
 
             var problem = new CurrentProblem(); // Change this depending on what problem you want to solve.
             swPart1.Start();

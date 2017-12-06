@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AdventOfCode._2017.Day5
 {
-    public class CurrentProblem
+    public class MazeOfTwistyTrampolines
     {
         public int Part1(List<string> input)
         {
