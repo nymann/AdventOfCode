@@ -5,13 +5,13 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode._2017.Day7
 {
-    public class Program : IComparable<Program>
+    public class Disc
     {
         public string Name;
         public int Weight;
-        public List<string> SubNames;
+        public List<string> SubNames = new List<string>();
 
-        public Program(string program)
+        public Disc(string program)
         {
             Weight = Convert.ToInt32(Regex.Match(program, @"([0-9])+").Value);
             Name = program.Substring(0, program.IndexOf(' '));
@@ -22,12 +22,7 @@ namespace AdventOfCode._2017.Day7
                 return;
             }
 
-            SubNames = program.Substring(program.IndexOf('>') + 2).Replace(" ", "").Split(',').ToList();
-        }
-
-        public int CompareTo(Program other)
-        {
-            return Weight.CompareTo(other.Weight);
+            SubNames.AddRange(program.Substring(program.IndexOf('>') + 2).Replace(" ", "").Split(',').ToList());
         }
     }
 }
