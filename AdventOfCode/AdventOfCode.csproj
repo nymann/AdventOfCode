@@ -66,6 +66,8 @@
     <Compile Include="2017\Day4\HighEntropyPassPhrases.cs" />
     <Compile Include="2017\Day5\MazeOfTwistyTrampolines.cs" />
     <Compile Include="2017\Day6\MemoryReallocation.cs" />
+    <Compile Include="2017\Day7\Program.cs" />
+    <Compile Include="2017\Day7\RecursiveCircus.cs" />
     <Compile Include="Helper\ReadFileLineByLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
