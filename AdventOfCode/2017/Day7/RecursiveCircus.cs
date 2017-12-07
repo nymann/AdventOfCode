@@ -6,66 +6,53 @@ namespace AdventOfCode._2017.Day7
 {
     public class RecursiveCircus
     {
-        private readonly List<Disc> _programs = new List<Disc>();
-
         public string Part1(List<string> input)
         {
             var programs = input.Select(program => new Disc(program)).ToList();
-            return BottomTower(programs);
+            return NameOfRootProgram(programs);
         }
 
         public string Part2(List<string> input)
         {
-            _programs.AddRange(input.Select(program => new Disc(program)).ToList());
-            var bottomTower = BottomTower(_programs);
-            var bottomProgram = _programs.First(p => p.Name.Equals(bottomTower));
+            var discs = input.Select(d => new Disc(d)).ToList();
+            discs.ForEach(x => x.AddChildDiscs(discs)); // Add the children discs.
+            var disc = GetBaseDisc(discs);
 
-            // find the bottom-tower's sub programs.
-            var bottomSubPrograms = _programs.Where(program => bottomProgram.SubNames.Contains(program.Name)).ToList();
+            var desiredWeight = 0;
 
-
-            // add those to n new lists.
-            var weights = new int[bottomSubPrograms.Count];
-
-            // calculate the sum of each.
-            var s = "";
-            for (var index = 0; index < bottomSubPrograms.Count; index++)
+            while (!disc.IsBalanced())
             {
-                var bottomSubProgram = bottomSubPrograms[index];
-                weights[index] = Weight(bottomSubProgram);
-                s += " " + weights[index];
+                (disc, desiredWeight) = disc.GetUnbalancedChild();
             }
 
-            return s;
+            var weightDelta = desiredWeight - disc.GetTotalWeight();
+            return (disc.Weight + weightDelta).ToString();
         }
 
-        private string BottomTower(List<Disc> programs)
+        public static Disc GetBaseDisc(IEnumerable<Disc> discs)
         {
-            var names = programs.Select(program => program.Name).ToList();
+            var disc = discs.First();
+
+            while (disc.Parent != null)
+            {
+                disc = disc.Parent;
+            }
+
+            return disc;
+        }
+
+        private string NameOfRootProgram(List<Disc> discs)
+        {
+            var names = discs.Select(program => program.Name).ToList();
             foreach (var name in names)
             {
-                if (!programs.Any(program => program.SubNames.Contains(name)))
+                if (!discs.Any(program => program.ChildNames.Contains(name)))
                 {
                     return name;
                 }
             }
 
-            throw new Exception("Couldn't find a solution for BottomTower().");
-        }
-
-        private int Weight(Disc program)
-        {
-            var cP = program;
-            var weight = cP.Weight;
-            while (cP.SubNames.Count > 0)
-            {
-                foreach (var t in cP.SubNames)
-                {
-                    cP = _programs.First(x => x.Name.Equals(t));
-                    weight += cP.Weight;
-                }
-            }
-            return weight;
+            throw new Exception("Couldn't find a solution for NameOfRootProgram().");
         }
     }
 }
