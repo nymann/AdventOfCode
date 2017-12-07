@@ -10,11 +10,11 @@ namespace AdventOfCode._2017.Day7
         public string Part1(List<string> input)
         {
             var programs = input.Select(program => new Program(program)).ToList();
-            
+
+            var bottomTower = BottomTower(programs);
 
 
-
-            return programs.First().Name;
+            return bottomTower.Name;
         }
 
         public string Part2(List<string> input)
@@ -23,23 +23,33 @@ namespace AdventOfCode._2017.Day7
         }
 
 
-        private bool TowerBuild(IReadOnlyCollection<Program> programs)
+        private Program BottomTower(IReadOnlyCollection<Program> programs)
         {
-            var ammountOfPrograms = programs.Count;
-            var programsUsed = 0;
-            var programsThatContainsSubPrograms = programs.Count(program => program.SubNames.Count > 0);
-
-            foreach (var program in programs)
+            var programsThatHaveSubPrograms = programs.Where(program => program.SubNames.Count > 0).Select(program => program.SubNames);
+            var subProgramNames = new HashSet<string>();
+            foreach (var programsThatHaveSubProgram in programsThatHaveSubPrograms)
             {
-                if (programsUsed < )
+                foreach (var c in programsThatHaveSubProgram)
                 {
-                    
+                    subProgramNames.Add(c);
                 }
-
-                return ammountOfPrograms == programsUsed;
             }
 
-            return false;
+            var temp = programs.ToList();
+            foreach (var program in temp)
+            {
+                if (subProgramNames.Contains(program.Name))
+                {
+                    temp.Remove(program);
+                }
+            }
+
+            if (temp.Count != 1)
+            {
+                throw new Exception($"ERROR! Count {temp.Count}");
+            }
+
+            return temp.First();
         }
     }
 }
