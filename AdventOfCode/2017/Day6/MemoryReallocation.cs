@@ -7,17 +7,17 @@ namespace AdventOfCode._2017.Day6
 {
     public class MemoryReallocation
     {
-        public object Part1(string input)
+        public int Part1(string input)
         {
-            var matches = Regex.Matches(input, @"([0-9])+");
+            var matches = Regex.Matches(input, @"([0-9])+"); // match all digits
             var blocks = (from Match match in matches
-                select Convert.ToInt32(match.Value)).ToList();
+                select Convert.ToInt32(match.Value)).ToList(); // convert from Matches to a List<int>
 
             var histogram =
                 new HashSet<string>
                 {
-                    ListToString(blocks)
-                }; // if we try to add a duplicate, then the histogram.Count won't change since HashSet doesn't allow duplicates.
+                    string.Join(" ", blocks)
+                }; // if we try to add a duplicate, then histogram.Add() will return false, since a HashSet cannot contain duplicates.
 
             while (true)
             {
@@ -34,18 +34,14 @@ namespace AdventOfCode._2017.Day6
                     counter++;
                 }
 
-                var x = histogram.Count;
-                histogram.Add(ListToString(blocks));
-                if (x == histogram.Count)
+                if (!histogram.Add(string.Join(" ", blocks)))
                 {
                     return histogram.Count;
                 }
             }
-
-            throw new Exception("Couldn't find a solution");
         }
 
-        public object Part2(string input)
+        public int Part2(string input)
         {
             var matches = Regex.Matches(input, @"([0-9])+");
             var blocks = (from Match match in matches
@@ -54,8 +50,8 @@ namespace AdventOfCode._2017.Day6
             var histogram =
                 new HashSet<string>
                 {
-                    ListToString(blocks)
-                }; // if we try to add a duplicate, then the histogram.Count won't change since HashSet doesn't allow duplicates.
+                    string.Join(" ", blocks)
+                }; // if we try to add a duplicate, then histogram.Add() will return false, since a HashSet cannot contain duplicates.
 
             while (true)
             {
@@ -72,10 +68,8 @@ namespace AdventOfCode._2017.Day6
                     counter++;
                 }
 
-                var x = histogram.Count;
-                var blocksAsString = ListToString(blocks);
-                histogram.Add(blocksAsString);
-                if (x != histogram.Count)
+                var blocksAsString = string.Join(" ", blocks);
+                if (histogram.Add(blocksAsString))
                 {
                     continue;
                 }
@@ -85,18 +79,11 @@ namespace AdventOfCode._2017.Day6
                 {
                     if (b.Equals(blocksAsString))
                     {
-                        return x - index;
+                        return histogram.Count - index;
                     }
                     index++;
                 }
             }
-
-            throw new Exception("Couldn't find a solution");
-        }
-
-        private string ListToString(List<int> blocks)
-        {
-            return blocks.Aggregate("", (current, block) => current + $" {block}");
         }
     }
 }
