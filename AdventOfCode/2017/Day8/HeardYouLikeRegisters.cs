@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace AdventOfCode._2017.Day8
 {
@@ -32,31 +31,17 @@ namespace AdventOfCode._2017.Day8
         {
             _registerValueLookup.Clear();
 
-            var max = 0;
-            
-            foreach (var instruction in input)
-            {
-                // example: "b inc 5 if a > 1",
-
-                // check the condition first
-                var condition = ConditionSatisfied(instruction);
-                if (!condition)
-                {
-                    continue;
-                }
-
-                // perform the operation and set the new max accordingly.
-                max = Math.Max(max, PerformOperation(instruction));
-            }
-
-            return max;
+            return (from instruction in input
+                let condition = ConditionSatisfied(instruction)
+                where condition
+                select PerformOperation(instruction)).Concat(new[] {0}).Max();
         }
 
 
         private bool ConditionSatisfied(string instruction)
         {
             //  a > 1
-            var temp = instruction.IndexOf(" if ") + 4;
+            var temp = instruction.IndexOf(" if ", StringComparison.Ordinal) + 4;
             var condition = instruction.Substring(temp);
             var split = condition.Split(' ');
 
@@ -97,7 +82,7 @@ namespace AdventOfCode._2017.Day8
         private int PerformOperation(string instruction)
         {
             // fi dec 283 if tc > 1817
-            var temp = instruction.IndexOf(" if ");
+            var temp = instruction.IndexOf(" if ", StringComparison.Ordinal);
             var operation = instruction.Substring(0, temp);
             var split = operation.Split(' ').Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
